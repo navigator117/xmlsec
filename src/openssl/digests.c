@@ -111,6 +111,12 @@ xmlSecOpenSSLEvpDigestCheckId(xmlSecTransformPtr transform) {
     } else
 #endif /* XMLSEC_NO_SHA512 */
 
+#ifndef XMLSEC_NO_SM3
+    if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformSm3Id)) {
+        return(1);
+    } else
+#endif /* XMLSEC_NO_SM3 */
+        
 #ifndef XMLSEC_NO_GOST
     if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformGostR3411_94Id)) {
         return(1);
@@ -187,6 +193,12 @@ xmlSecOpenSSLEvpDigestInitialize(xmlSecTransformPtr transform) {
     } else
 #endif /* XMLSEC_NO_SHA512 */
 
+#ifndef XMLSEC_NO_SM3
+    if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformSm3Id)) {
+        ctx->digest = EVP_sm3();
+    } else
+#endif /* XMLSEC_NO_SM3 */
+        
 #ifndef XMLSEC_NO_GOST
     if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformGostR3411_94Id)) {
         ctx->digest = EVP_get_digestbyname("md_gost94");
@@ -699,6 +711,52 @@ xmlSecOpenSSLTransformSha512GetKlass(void) {
     return(&xmlSecOpenSSLSha512Klass);
 }
 #endif /* XMLSEC_NO_SHA512 */
+
+#ifndef XMLSEC_NO_SM3
+/******************************************************************************
+ *
+ * SM3
+ *
+ *****************************************************************************/
+static xmlSecTransformKlass xmlSecOpenSSLSm3Klass = {
+    /* klass/object sizes */
+    sizeof(xmlSecTransformKlass),               /* xmlSecSize klassSize */
+    xmlSecOpenSSLEvpDigestSize,                 /* xmlSecSize objSize */
+
+    xmlSecNameSm3,                              /* const xmlChar* name; */
+    xmlSecHrefSm3,                              /* const xmlChar* href; */
+    xmlSecTransformUsageDigestMethod,           /* xmlSecTransformUsage usage; */
+
+    xmlSecOpenSSLEvpDigestInitialize,           /* xmlSecTransformInitializeMethod initialize; */
+    xmlSecOpenSSLEvpDigestFinalize,             /* xmlSecTransformFinalizeMethod finalize; */
+    NULL,                                       /* xmlSecTransformNodeReadMethod readNode; */
+    NULL,                                       /* xmlSecTransformNodeWriteMethod writeNode; */
+    NULL,                                       /* xmlSecTransformSetKeyReqMethod setKeyReq; */
+    NULL,                                       /* xmlSecTransformSetKeyMethod setKey; */
+    xmlSecOpenSSLEvpDigestVerify,               /* xmlSecTransformVerifyMethod verify; */
+    xmlSecTransformDefaultGetDataType,          /* xmlSecTransformGetDataTypeMethod getDataType; */
+    xmlSecTransformDefaultPushBin,              /* xmlSecTransformPushBinMethod pushBin; */
+    xmlSecTransformDefaultPopBin,               /* xmlSecTransformPopBinMethod popBin; */
+    NULL,                                       /* xmlSecTransformPushXmlMethod pushXml; */
+    NULL,                                       /* xmlSecTransformPopXmlMethod popXml; */
+    xmlSecOpenSSLEvpDigestExecute,              /* xmlSecTransformExecuteMethod execute; */
+
+    NULL,                                       /* void* reserved0; */
+    NULL,                                       /* void* reserved1; */
+};
+
+/**
+ * xmlSecOpenSSLTransformSm3GetKlass:
+ *
+ * SM3 digest transform klass.
+ *
+ * Returns: pointer to SM3 digest transform klass.
+ */
+xmlSecTransformId
+xmlSecOpenSSLTransformSm3GetKlass(void) {
+    return(&xmlSecOpenSSLSm3Klass);
+}
+#endif /* XMLSEC_NO_SM3 */
 
 #ifndef XMLSEC_NO_GOST
 /******************************************************************************

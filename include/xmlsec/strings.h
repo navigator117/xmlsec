@@ -242,6 +242,16 @@ XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefEcdsaSha384[];
 XMLSEC_EXPORT_VAR const xmlChar xmlSecNameEcdsaSha512[];
 XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefEcdsaSha512[];
 
+XMLSEC_EXPORT_VAR const xmlChar xmlSecNameSM2KeyValue[];
+XMLSEC_EXPORT_VAR const xmlChar xmlSecNodeSM2KeyValue[];
+XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefSM2KeyValue[];
+
+XMLSEC_EXPORT_VAR const xmlChar xmlSecNameSm2Sha256[];
+XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefSm2Sha256[];
+
+XMLSEC_EXPORT_VAR const xmlChar xmlSecNameSm2Sm3[];
+XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefSm2Sm3[];
+
 /*************************************************************************
  *
  * GOST2001 strings
@@ -411,6 +421,9 @@ XMLSEC_EXPORT_VAR const xmlChar xmlSecNameRsaOaep[];
 XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefRsaOaep[];
 XMLSEC_EXPORT_VAR const xmlChar xmlSecNodeRsaOAEPparams[];
 
+XMLSEC_EXPORT_VAR const xmlChar xmlSecNameRsaSm3[];
+XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefRsaSm3[];
+
 /*************************************************************************
  *
  * GOSTR3411_94 strings
@@ -448,6 +461,9 @@ XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefSha384[];
 
 XMLSEC_EXPORT_VAR const xmlChar xmlSecNameSha512[];
 XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefSha512[];
+
+XMLSEC_EXPORT_VAR const xmlChar xmlSecNameSm3[];
+XMLSEC_EXPORT_VAR const xmlChar xmlSecHrefSm3[];    
 
 /*************************************************************************
  *

@@ -175,6 +175,25 @@ xmlSecKeyDataEcdsaGetKlass(void) {
 }
 
 /**
+ * xmlSecKeyDataSm2GetKlass:
+ *
+ * The SM2 key data klass.
+ *
+ * Returns: SM2 key data klass or NULL if an error occurs
+ * (xmlsec-crypto library is not loaded or the SM2 key data
+ * klass is not implemented).
+ */
+xmlSecKeyDataId
+xmlSecKeyDataSm2GetKlass(void) {
+    if((xmlSecCryptoDLGetFunctions() == NULL) || (xmlSecCryptoDLGetFunctions()->keyDataSm2GetKlass == NULL)) {
+        xmlSecNotImplementedError("keyDataSm2GetKlass");
+        return(xmlSecKeyDataIdUnknown);
+    }
+
+    return(xmlSecCryptoDLGetFunctions()->keyDataSm2GetKlass());
+}
+
+/**
  * xmlSecKeyDataGost2001GetKlass:
  *
  * The GOST2001 key data klass.
@@ -682,6 +701,45 @@ xmlSecTransformEcdsaSha512GetKlass(void) {
 }
 
 /**
+ * xmlSecTransformSm2Sha256GetKlass:
+ *
+ * The SM2-SHA256 signature transform klass.
+ *
+ * Returns: SM2-SHA256 signature transform klass or NULL if an error
+ * occurs (the xmlsec-crypto library is not loaded or this transform is not
+ * implemented).
+ */
+xmlSecTransformId
+xmlSecTransformSm2Sha256GetKlass(void) {
+    if((xmlSecCryptoDLGetFunctions() == NULL) || (xmlSecCryptoDLGetFunctions()->transformSm2Sha256GetKlass == NULL)) {
+        xmlSecNotImplementedError("transformSm2Sha256GetKlass");
+        return(xmlSecTransformIdUnknown);
+    }
+
+    return(xmlSecCryptoDLGetFunctions()->transformSm2Sha256GetKlass());
+}
+
+
+/**
+ * xmlSecTransformSm2Sm3GetKlass:
+ *
+ * The SM2-SM3 signature transform klass.
+ *
+ * Returns: SM2-SM3 signature transform klass or NULL if an error
+ * occurs (the xmlsec-crypto library is not loaded or this transform is not
+ * implemented).
+ */
+xmlSecTransformId
+xmlSecTransformSm2Sm3GetKlass(void) {
+    if((xmlSecCryptoDLGetFunctions() == NULL) || (xmlSecCryptoDLGetFunctions()->transformSm2Sm3GetKlass == NULL)) {
+        xmlSecNotImplementedError("transformSm2Sm3GetKlass");
+        return(xmlSecTransformIdUnknown);
+    }
+
+    return(xmlSecCryptoDLGetFunctions()->transformSm2Sm3GetKlass());
+}
+
+/**
  * xmlSecTransformGost2001GostR3411_94GetKlass:
  *
  * The GOST2001-GOSTR3411_94 signature transform klass.
@@ -1081,6 +1139,25 @@ xmlSecTransformRsaOaepGetKlass(void) {
 }
 
 /**
+ * xmlSecTransformRsaSm3GetKlass:
+ *
+ * The RSA-SM3 signature transform klass.
+ *
+ * Returns: RSA-SM3 signature transform klass or NULL if an error
+ * occurs (the xmlsec-crypto library is not loaded or this transform is not
+ * implemented).
+ */
+xmlSecTransformId
+xmlSecTransformRsaSm3GetKlass(void) {
+    if((xmlSecCryptoDLGetFunctions() == NULL) || (xmlSecCryptoDLGetFunctions()->transformRsaSm3GetKlass == NULL)) {
+        xmlSecNotImplementedError("transformRsaSm3GetKlass");
+        return(xmlSecTransformIdUnknown);
+    }
+
+    return(xmlSecCryptoDLGetFunctions()->transformRsaSm3GetKlass());
+}
+
+/**
  * xmlSecTransformGostR3411_94GetKlass:
  *
  * GOSTR3411_94 digest transform klass.
@@ -1230,6 +1307,25 @@ xmlSecTransformSha512GetKlass(void) {
     }
 
     return(xmlSecCryptoDLGetFunctions()->transformSha512GetKlass());
+}
+
+/**
+ * xmlSecTransformSm3GetKlass:
+ *
+ * SM3 digest transform klass.
+ *
+ * Returns: pointer to SM3 digest transform klass or NULL if an error
+ * occurs (the xmlsec-crypto library is not loaded or this transform is not
+ * implemented).
+ */
+xmlSecTransformId
+xmlSecTransformSm3GetKlass(void) {
+    if((xmlSecCryptoDLGetFunctions() == NULL) || (xmlSecCryptoDLGetFunctions()->transformSm3GetKlass == NULL)) {
+        xmlSecNotImplementedError("transformSm3GetKlass");
+        return(xmlSecTransformIdUnknown);
+    }
+
+    return(xmlSecCryptoDLGetFunctions()->transformSm3GetKlass());
 }
 
 /******************************************************************************

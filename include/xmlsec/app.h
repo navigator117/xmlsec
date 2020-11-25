@@ -268,6 +268,22 @@ XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformEcdsaSha384GetKla
 XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformEcdsaSha512GetKlass  (void);
 
 /**
+ * xmlSecTransformSm2Sha256Id:
+ *
+ * The SM2-SHA256 signature transform klass.
+ */
+#define xmlSecTransformSm2Sha256Id              xmlSecTransformSm2Sha256GetKlass()
+XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformSm2Sha256GetKlass  (void);
+
+/**
+ * xmlSecTransformSm2Sm3Id:
+ *
+ * The SM2-SM3 signature transform klass.
+ */
+#define xmlSecTransformSm2Sm3Id                 xmlSecTransformSm2Sm3GetKlass()
+XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformSm2Sm3GetKlass  (void);
+
+/**
  * xmlSecTransformGost2001GostR3411_94Id:
  *
  * The GOST2001-GOSTR3411_94 signature transform klass.
@@ -419,11 +435,18 @@ XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformRsaPkcs1GetKlass 
 #define xmlSecTransformRsaOaepId                xmlSecTransformRsaOaepGetKlass()
 XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformRsaOaepGetKlass  (void);
 /**
+ * xmlSecTransformRsaSm3Id:
+ *
+ * The RSA-SM3 signature transform klass.
+ */
+#define xmlSecTransformRsaSm3Id                 xmlSecTransformRsaSm3GetKlass()
+XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformRsaSm3GetKlass        (void);
+/**
  * xmlSecTransformGostR3411_94Id:
  *
  * The GOSTR3411_94 digest transform klass.
  */
-#define xmlSecTransformGostR3411_94Id                   xmlSecTransformGostR3411_94GetKlass()
+#define xmlSecTransformGostR3411_94Id           xmlSecTransformGostR3411_94GetKlass()
 XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformGostR3411_94GetKlass     (void);
 /**
  * xmlSecTransformGostR3411_2012_256Id:
@@ -475,6 +498,13 @@ XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformSha384GetKlass   
  */
 #define xmlSecTransformSha512Id                 xmlSecTransformSha512GetKlass()
 XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformSha512GetKlass   (void);
+/**
+ * xmlSecTransformSm3Id:
+ *
+ * The SM3 digest transform klass.
+ */
+#define xmlSecTransformSm3Id                    xmlSecTransformSm3GetKlass()
+XMLSEC_EXPORT xmlSecTransformId                 xmlSecTransformSm3GetKlass   (void);
 
 /*********************************************************************
  *

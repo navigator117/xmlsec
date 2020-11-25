@@ -78,6 +78,7 @@ xmlSecCryptoGetFunctions_skeleton(void) {
 
 #ifndef XMLSEC_NO_ECDSA
     gXmlSecSkeletonFunctions->keyDataEcdsaGetKlass      = xmlSecSkeletonKeyDataEcdsaGetKlass;
+    gXmlSecSkeletonFunctions->keyDataSm2GetKlass        = xmlSecSkeletonKeyDataSm2GetKlass;    
 #endif /* XMLSEC_NO_ECDSA */
 
 #ifndef XMLSEC_NO_GOST
@@ -165,6 +166,14 @@ xmlSecCryptoGetFunctions_skeleton(void) {
     gXmlSecSkeletonFunctions->transformEcdsaSha512GetKlass      = xmlSecSkeletonTransformEcdsaSha512GetKlass;
 #endif /* XMLSEC_NO_SHA512 */
 
+#ifndef XMLSEC_NO_SHA256
+    gXmlSecSkeletonFunctions->transformSm2Sha256GetKlass      = xmlSecSkeletonTransformSm2Sha256GetKlass;
+#endif /* XMLSEC_NO_SHA256 */
+
+#ifndef XMLSEC_NO_SM3
+    gXmlSecSkeletonFunctions->transformSm2Sm3GetKlass      = xmlSecSkeletonTransformSm2Sm3GetKlass;
+#endif /* XMLSEC_NO_SM3 */
+    
 #endif /* XMLSEC_NO_ECDSA */
 
     /******************************* GOST ********************************/

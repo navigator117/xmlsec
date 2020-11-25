@@ -271,6 +271,16 @@ const xmlChar xmlSecHrefEcdsaSha384[]           = "http://www.w3.org/2001/04/xml
 const xmlChar xmlSecNameEcdsaSha512[]           = "ecdsa-sha512";
 const xmlChar xmlSecHrefEcdsaSha512[]           = "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512";
 
+const xmlChar xmlSecNameSM2KeyValue[]           = "sm2";
+const xmlChar xmlSecNodeSM2KeyValue[]           = "SM2KeyValue";
+const xmlChar xmlSecHrefSM2KeyValue[]           = "http://scap.nist.gov/specifications/tmsad/#resource-1.0";
+
+const xmlChar xmlSecNameSm2Sha256[]             = "sm2-sha256";
+const xmlChar xmlSecHrefSm2Sha256[]             = "http://www.w3.org/2001/04/xmldsig-more#sm2-sha256";
+
+const xmlChar xmlSecNameSm2Sm3[]                = "sm2-sm3";
+const xmlChar xmlSecHrefSm2Sm3[]                = "http://www.w3.org/2001/04/xmldsig-more#sm2-sm3";
+
 /*************************************************************************
  *
  * EncryptedKey
@@ -407,6 +417,9 @@ const xmlChar xmlSecNameRsaOaep[]               = "rsa-oaep-mgf1p";
 const xmlChar xmlSecHrefRsaOaep[]               = "http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p";
 const xmlChar xmlSecNodeRsaOAEPparams[]         = "OAEPparams";
 
+const xmlChar xmlSecNameRsaSm3[]                = "rsa-sm3";
+const xmlChar xmlSecHrefRsaSm3[]                = "http://www.w3.org/2001/04/xmldsig-more#rsa-sm3";
+
 /*************************************************************************
  *
  * GOSTR3411_94 strings
@@ -448,6 +461,9 @@ const xmlChar xmlSecHrefSha384[]                = "http://www.w3.org/2001/04/xml
 
 const xmlChar xmlSecNameSha512[]                = "sha512";
 const xmlChar xmlSecHrefSha512[]                = "http://www.w3.org/2001/04/xmlenc#sha512";
+
+const xmlChar xmlSecNameSm3[]                   = "sm3";
+const xmlChar xmlSecHrefSm3[]                   = "http://www.w3.org/2001/04/xmlenc#sm3";
 
 /*************************************************************************
  *

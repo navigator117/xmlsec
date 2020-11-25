@@ -573,6 +573,11 @@ xmlSecCryptoDLFunctionsRegisterKeyDataAndTransforms(struct _xmlSecCryptoDLFuncti
                             xmlSecKeyDataKlassGetName(functions->keyDataEcdsaGetKlass()));
         return(-1);
     }
+    if((functions->keyDataSm2GetKlass != NULL) && (xmlSecKeyDataIdsRegister(functions->keyDataSm2GetKlass()) < 0)) {
+        xmlSecInternalError("xmlSecKeyDataIdsRegister",
+                            xmlSecKeyDataKlassGetName(functions->keyDataSm2GetKlass()));
+        return(-1);
+    }    
     if((functions->keyDataGost2001GetKlass != NULL) && (xmlSecKeyDataIdsRegister(functions->keyDataGost2001GetKlass()) < 0)) {
         xmlSecInternalError("xmlSecKeyDataIdsRegister",
                             xmlSecKeyDataKlassGetName(functions->keyDataGost2001GetKlass()));
@@ -740,6 +745,18 @@ xmlSecCryptoDLFunctionsRegisterKeyDataAndTransforms(struct _xmlSecCryptoDLFuncti
         return(-1);
     }
 
+    if((functions->transformSm2Sha256GetKlass != NULL) && xmlSecTransformIdsRegister(functions->transformSm2Sha256GetKlass()) < 0) {
+        xmlSecInternalError("xmlSecTransformIdsRegister",
+                            xmlSecTransformKlassGetName(functions->transformSm2Sha256GetKlass()));
+        return(-1);
+    }
+
+    if((functions->transformSm2Sm3GetKlass != NULL) && xmlSecTransformIdsRegister(functions->transformSm2Sm3GetKlass()) < 0) {
+        xmlSecInternalError("xmlSecTransformIdsRegister",
+                            xmlSecTransformKlassGetName(functions->transformSm2Sm3GetKlass()));
+        return(-1);
+    }
+    
     if((functions->transformHmacMd5GetKlass != NULL) && xmlSecTransformIdsRegister(functions->transformHmacMd5GetKlass()) < 0) {
         xmlSecInternalError("xmlSecTransformIdsRegister",
                             xmlSecTransformKlassGetName(functions->transformHmacMd5GetKlass()));
@@ -848,6 +865,12 @@ xmlSecCryptoDLFunctionsRegisterKeyDataAndTransforms(struct _xmlSecCryptoDLFuncti
         return(-1);
     }
 
+    if((functions->transformRsaSm3GetKlass != NULL) && xmlSecTransformIdsRegister(functions->transformRsaSm3GetKlass()) < 0) {
+        xmlSecInternalError("xmlSecTransformIdsRegister",
+                            xmlSecTransformKlassGetName(functions->transformRsaSm3GetKlass()));
+        return(-1);
+    }
+    
     if((functions->transformGostR3411_94GetKlass != NULL) && xmlSecTransformIdsRegister(functions->transformGostR3411_94GetKlass()) < 0) {
         xmlSecInternalError("xmlSecTransformIdsRegister",
                             xmlSecTransformKlassGetName(functions->transformGostR3411_94GetKlass()));
@@ -894,6 +917,12 @@ xmlSecCryptoDLFunctionsRegisterKeyDataAndTransforms(struct _xmlSecCryptoDLFuncti
                             xmlSecTransformKlassGetName(functions->transformSha512GetKlass()));
         return(-1);
     }
+
+    if((functions->transformSm3GetKlass != NULL) && xmlSecTransformIdsRegister(functions->transformSm3GetKlass()) < 0) {
+        xmlSecInternalError("xmlSecTransformIdsRegister",
+                            xmlSecTransformKlassGetName(functions->transformSm3GetKlass()));
+        return(-1);
+    }    
 
     /* done */
     return(0);

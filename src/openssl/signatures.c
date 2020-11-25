@@ -235,6 +235,18 @@ xmlSecOpenSSLSignatureCheckId(xmlSecTransformPtr transform) {
     } else
 #endif /* XMLSEC_NO_SHA512 */
 
+#ifndef XMLSEC_NO_SHA256        
+    if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformSm2Sha256Id)) {
+        return(1);
+    } else
+#endif /* XMLSEC_NO_SHA256 */
+        
+#ifndef XMLSEC_NO_SM3
+    if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformSm2Sm3Id)) {
+        return(1);
+    } else
+#endif /* XMLSEC_NO_SM3 */
+
 #endif /* XMLSEC_NO_ECDSA */
 
     {
@@ -323,6 +335,24 @@ xmlSecOpenSSLSignatureInitialize(xmlSecTransformPtr transform) {
         ctx->verifyCallback = xmlSecOpenSSLSignatureEcdsaVerify;
     } else
 #endif /* XMLSEC_NO_SHA512 */
+
+#ifndef XMLSEC_NO_SHA256
+    if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformSm2Sha256Id)) {
+        ctx->digest         = EVP_sha256();
+        ctx->keyId          = xmlSecOpenSSLKeyDataSm2Id;
+        ctx->signCallback   = xmlSecOpenSSLSignatureEcdsaSign;
+        ctx->verifyCallback = xmlSecOpenSSLSignatureEcdsaVerify;
+    } else
+#endif /* XMLSEC_NO_SHA256 */
+
+#ifndef XMLSEC_NO_SM3
+    if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformSm2Sm3Id)) {
+        ctx->digest         = EVP_sm3();
+        ctx->keyId          = xmlSecOpenSSLKeyDataSm2Id;
+        ctx->signCallback   = xmlSecOpenSSLSignatureEcdsaSign;
+        ctx->verifyCallback = xmlSecOpenSSLSignatureEcdsaVerify;
+    } else
+#endif /* XMLSEC_NO_SM3 */
 
 #endif /* XMLSEC_NO_ECDSA */
 
@@ -957,7 +987,7 @@ xmlSecOpenSSLSignatureEcdsaSign(xmlSecOpenSSLSignatureCtxPtr ctx, xmlSecBufferPt
     /* get key */
     ecKey = EVP_PKEY_get1_EC_KEY(ctx->pKey);
     if(ecKey == NULL) {
-        xmlSecOpenSSLError("EVP_PKEY_get1_DSA", NULL);
+        xmlSecOpenSSLError("EVP_PKEY_get1_EC_KEY", NULL);
         goto done;
     }
 
@@ -1072,7 +1102,7 @@ xmlSecOpenSSLSignatureEcdsaVerify(xmlSecOpenSSLSignatureCtxPtr ctx, const xmlSec
     /* create/read signature */
     sig = ECDSA_SIG_new();
     if (sig == NULL) {
-        xmlSecOpenSSLError("DSA_SIG_new", NULL);
+        xmlSecOpenSSLError("ECDSA_SIG_new", NULL);
         goto done;
     }
 
@@ -1359,8 +1389,100 @@ xmlSecOpenSSLTransformEcdsaSha512GetKlass(void) {
 
 #endif /* XMLSEC_NO_SHA512 */
 
+#ifndef XMLSEC_NO_SHA256
+/****************************************************************************
+ *
+ * SM2-SHA256 signature transform
+ *
+ ***************************************************************************/
+
+static xmlSecTransformKlass xmlSecOpenSSLSm2Sha256Klass = {
+    /* klass/object sizes */
+    sizeof(xmlSecTransformKlass),               /* xmlSecSize klassSize */
+    xmlSecOpenSSLSignatureSize,                 /* xmlSecSize objSize */
+
+    xmlSecNameSm2Sha256,                        /* const xmlChar* name; */
+    xmlSecHrefSm2Sha256,                        /* const xmlChar* href; */
+    xmlSecTransformUsageSignatureMethod,        /* xmlSecTransformUsage usage; */
+
+    xmlSecOpenSSLSignatureInitialize,           /* xmlSecTransformInitializeMethod initialize; */
+    xmlSecOpenSSLSignatureFinalize,             /* xmlSecTransformFinalizeMethod finalize; */
+    NULL,                                       /* xmlSecTransformNodeReadMethod readNode; */
+    NULL,                                       /* xmlSecTransformNodeWriteMethod writeNode; */
+    xmlSecOpenSSLSignatureSetKeyReq,            /* xmlSecTransformSetKeyReqMethod setKeyReq; */
+    xmlSecOpenSSLSignatureSetKey,               /* xmlSecTransformSetKeyMethod setKey; */
+    xmlSecOpenSSLSignatureVerify,               /* xmlSecTransformVerifyMethod verify; */
+    xmlSecTransformDefaultGetDataType,          /* xmlSecTransformGetDataTypeMethod getDataType; */
+    xmlSecTransformDefaultPushBin,              /* xmlSecTransformPushBinMethod pushBin; */
+    xmlSecTransformDefaultPopBin,               /* xmlSecTransformPopBinMethod popBin; */
+    NULL,                                       /* xmlSecTransformPushXmlMethod pushXml; */
+    NULL,                                       /* xmlSecTransformPopXmlMethod popXml; */
+    xmlSecOpenSSLSignatureExecute,              /* xmlSecTransformExecuteMethod execute; */
+
+    NULL,                                       /* void* reserved0; */
+    NULL,                                       /* void* reserved1; */
+};
+
+/**
+ * xmlSecOpenSSLTransformSm2Sha256GetKlass:
+ *
+ * The SM2-SHA256 signature transform klass.
+ *
+ * Returns: SM2-SHA256 signature transform klass.
+ */
+xmlSecTransformId
+xmlSecOpenSSLTransformSm2Sha256GetKlass(void) {
+    return(&xmlSecOpenSSLSm2Sha256Klass);
+}
+
+#endif /* XMLSEC_NO_SHA256 */
+
+#ifndef XMLSEC_NO_SM3
+/****************************************************************************
+ *
+ * SM2-SM3 signature transform
+ *
+ ***************************************************************************/
+
+static xmlSecTransformKlass xmlSecOpenSSLSm2Sm3Klass = {
+    /* klass/object sizes */
+    sizeof(xmlSecTransformKlass),               /* xmlSecSize klassSize */
+    xmlSecOpenSSLSignatureSize,                 /* xmlSecSize objSize */
+
+    xmlSecNameSm2Sm3,                           /* const xmlChar* name; */
+    xmlSecHrefSm2Sm3,                           /* const xmlChar* href; */
+    xmlSecTransformUsageSignatureMethod,        /* xmlSecTransformUsage usage; */
+
+    xmlSecOpenSSLSignatureInitialize,           /* xmlSecTransformInitializeMethod initialize; */
+    xmlSecOpenSSLSignatureFinalize,             /* xmlSecTransformFinalizeMethod finalize; */
+    NULL,                                       /* xmlSecTransformNodeReadMethod readNode; */
+    NULL,                                       /* xmlSecTransformNodeWriteMethod writeNode; */
+    xmlSecOpenSSLSignatureSetKeyReq,            /* xmlSecTransformSetKeyReqMethod setKeyReq; */
+    xmlSecOpenSSLSignatureSetKey,               /* xmlSecTransformSetKeyMethod setKey; */
+    xmlSecOpenSSLSignatureVerify,               /* xmlSecTransformVerifyMethod verify; */
+    xmlSecTransformDefaultGetDataType,          /* xmlSecTransformGetDataTypeMethod getDataType; */
+    xmlSecTransformDefaultPushBin,              /* xmlSecTransformPushBinMethod pushBin; */
+    xmlSecTransformDefaultPopBin,               /* xmlSecTransformPopBinMethod popBin; */
+    NULL,                                       /* xmlSecTransformPushXmlMethod pushXml; */
+    NULL,                                       /* xmlSecTransformPopXmlMethod popXml; */
+    xmlSecOpenSSLSignatureExecute,              /* xmlSecTransformExecuteMethod execute; */
+
+    NULL,                                       /* void* reserved0; */
+    NULL,                                       /* void* reserved1; */
+};
+
+/**
+ * xmlSecOpenSSLTransformSm2Sm3GetKlass:
+ *
+ * The SM2-SM3 signature transform klass.
+ *
+ * Returns: SM2-SM3 signature transform klass.
+ */
+xmlSecTransformId
+xmlSecOpenSSLTransformSm2Sm3GetKlass(void) {
+    return(&xmlSecOpenSSLSm2Sm3Klass);
+}
+
+#endif /* XMLSEC_NO_SM3 */
+
 #endif /* XMLSEC_NO_ECDSA */
-
-
-
-

@@ -119,6 +119,12 @@ xmlSecOpenSSLEvpSignatureCheckId(xmlSecTransformPtr transform) {
     } else
 #endif /* XMLSEC_NO_SHA512 */
 
+#ifndef XMLSEC_NO_SM3
+    if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformRsaSm3Id)) {
+        return(1);
+    } else
+#endif /* XMLSEC_NO_SM3 */        
+
 #endif /* XMLSEC_NO_RSA */
 
 #ifndef XMLSEC_NO_GOST
@@ -203,6 +209,13 @@ xmlSecOpenSSLEvpSignatureInitialize(xmlSecTransformPtr transform) {
         ctx->keyId      = xmlSecOpenSSLKeyDataRsaId;
     } else
 #endif /* XMLSEC_NO_SHA512 */
+
+#ifndef XMLSEC_NO_SM3
+    if(xmlSecTransformCheckId(transform, xmlSecOpenSSLTransformRsaSm3Id)) {
+        ctx->digest     = EVP_sm3();
+        ctx->keyId      = xmlSecOpenSSLKeyDataRsaId;
+    } else
+#endif /* XMLSEC_NO_SM3 */
 
 #endif /* XMLSEC_NO_RSA */
 
@@ -697,8 +710,8 @@ static xmlSecTransformKlass xmlSecOpenSSLRsaSha256Klass = {
     sizeof(xmlSecTransformKlass),               /* xmlSecSize klassSize */
     xmlSecOpenSSLEvpSignatureSize,              /* xmlSecSize objSize */
 
-    xmlSecNameRsaSha256,                                /* const xmlChar* name; */
-    xmlSecHrefRsaSha256,                                /* const xmlChar* href; */
+    xmlSecNameRsaSha256,                        /* const xmlChar* name; */
+    xmlSecHrefRsaSha256,                        /* const xmlChar* href; */
     xmlSecTransformUsageSignatureMethod,        /* xmlSecTransformUsage usage; */
 
     xmlSecOpenSSLEvpSignatureInitialize,        /* xmlSecTransformInitializeMethod initialize; */
@@ -826,6 +839,52 @@ xmlSecOpenSSLTransformRsaSha512GetKlass(void) {
 }
 
 #endif /* XMLSEC_NO_SHA512 */
+
+#ifndef XMLSEC_NO_SM3
+/****************************************************************************
+ *
+ * RSA-SM3 signature transform
+ *
+ ***************************************************************************/
+static xmlSecTransformKlass xmlSecOpenSSLRsaSm3Klass = {
+    /* klass/object sizes */
+    sizeof(xmlSecTransformKlass),               /* xmlSecSize klassSize */
+    xmlSecOpenSSLEvpSignatureSize,              /* xmlSecSize objSize */
+
+    xmlSecNameRsaSm3,                           /* const xmlChar* name; */
+    xmlSecHrefRsaSm3,                           /* const xmlChar* href; */
+    xmlSecTransformUsageSignatureMethod,        /* xmlSecTransformUsage usage; */
+
+    xmlSecOpenSSLEvpSignatureInitialize,        /* xmlSecTransformInitializeMethod initialize; */
+    xmlSecOpenSSLEvpSignatureFinalize,          /* xmlSecTransformFinalizeMethod finalize; */
+    NULL,                                       /* xmlSecTransformNodeReadMethod readNode; */
+    NULL,                                       /* xmlSecTransformNodeWriteMethod writeNode; */
+    xmlSecOpenSSLEvpSignatureSetKeyReq,         /* xmlSecTransformSetKeyReqMethod setKeyReq; */
+    xmlSecOpenSSLEvpSignatureSetKey,            /* xmlSecTransformSetKeyMethod setKey; */
+    xmlSecOpenSSLEvpSignatureVerify,            /* xmlSecTransformVerifyMethod verify; */
+    xmlSecTransformDefaultGetDataType,          /* xmlSecTransformGetDataTypeMethod getDataType; */
+    xmlSecTransformDefaultPushBin,              /* xmlSecTransformPushBinMethod pushBin; */
+    xmlSecTransformDefaultPopBin,               /* xmlSecTransformPopBinMethod popBin; */
+    NULL,                                       /* xmlSecTransformPushXmlMethod pushXml; */
+    NULL,                                       /* xmlSecTransformPopXmlMethod popXml; */
+    xmlSecOpenSSLEvpSignatureExecute,           /* xmlSecTransformExecuteMethod execute; */
+
+    NULL,                                       /* void* reserved0; */
+    NULL,                                       /* void* reserved1; */
+};
+
+/**
+ * xmlSecOpenSSLTransformRsaSm3GetKlass:
+ *
+ * The RSA-SM3 signature transform klass.
+ *
+ * Returns: RSA-SM3 signature transform klass.
+ */
+xmlSecTransformId
+xmlSecOpenSSLTransformRsaSm3GetKlass(void) {
+    return(&xmlSecOpenSSLRsaSm3Klass);
+}
+#endif /* XMLSEC_NO_SM3 */
 
 #endif /* XMLSEC_NO_RSA */
 
