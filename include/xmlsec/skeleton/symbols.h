@@ -70,6 +70,8 @@ extern "C" {
 #define xmlSecTransformEcdsaSha256Id            xmlSecSkeletonTransformEcdsaSha256Id
 #define xmlSecTransformEcdsaSha384Id            xmlSecSkeletonTransformEcdsaSha384Id
 #define xmlSecTransformEcdsaSha512Id            xmlSecSkeletonTransformEcdsaSha512Id
+#define xmlSecTransformSm2Sha256Id              xmlSecSkeletonTransformSm2Sha256Id
+#define xmlSecTransformSm2Sm3Id                 xmlSecSkeletonTransformSm2Sm3Id
 #define xmlSecTransformHmacMd5Id                xmlSecSkeletonTransformHmacMd5Id
 #define xmlSecTransformHmacRipemd160Id          xmlSecSkeletonTransformHmacRipemd160Id
 #define xmlSecTransformHmacSha1Id               xmlSecSkeletonTransformHmacSha1Id
@@ -86,11 +88,13 @@ extern "C" {
 #define xmlSecTransformRsaSha512Id              xmlSecSkeletonTransformRsaSha512Id
 #define xmlSecTransformRsaPkcs1Id               xmlSecSkeletonTransformRsaPkcs1Id
 #define xmlSecTransformRsaOaepId                xmlSecSkeletonTransformRsaOaepId
+#define xmlSecTransformRsaSm3Id                 xmlSecSkeletonTransformRsaSm3Id
 #define xmlSecTransformSha1Id                   xmlSecSkeletonTransformSha1Id
 #define xmlSecTransformSha224Id                 xmlSecSkeletonTransformSha224Id
 #define xmlSecTransformSha256Id                 xmlSecSkeletonTransformSha256Id
 #define xmlSecTransformSha384Id                 xmlSecSkeletonTransformSha384Id
 #define xmlSecTransformSha512Id                 xmlSecSkeletonTransformSha512Id
+#define xmlSecTransformSm3Id                    xmlSecSkeletonTransformSm3Id
 
 /********************************************************************
  *
